@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>رشاقة</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="رشاقة">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.json">
+<style>
+:root{
+  --bg:#F2F2F7; --card:#FFFFFF; --label:#000000; --sec:#6C6C70; --ter:#C4C4C7; --sep:#C6C6C8;
+  --fill:#E3E3E8; --fill2:#EEEEF0; --tint:#007AFF; --green:#34C759; --orange:#FF9500; --blue:#32ADE6;
+  --purple:#AF52DE; --red:#FF3B30; --bar:rgba(249,249,249,.92); --bubble:#E9E9EB; --track:#E5E5EA;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#000000; --card:#1C1C1E; --label:#FFFFFF; --sec:#98989F; --ter:#5A5A5E; --sep:#38383A;
+    --fill:#2C2C2E; --fill2:#2C2C2E; --tint:#0A84FF; --green:#30D158; --orange:#FF9F0A; --blue:#64D2FF;
+    --purple:#BF5AF2; --red:#FF453A; --bar:rgba(22,22,24,.92); --bubble:#26252A; --track:#2C2C2E;
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Arabic","SF Pro Text","Segoe UI",Tahoma,sans-serif;
+  color:var(--label);font-size:17px;-webkit-text-size-adjust:100%;overscroll-behavior:none;
+}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+#app{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--bg)}
+.screen{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-top:env(safe-area-inset-top)}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px 28px}
+.hidden{display:none!important}
+
+/* العناوين */
+.large-head{display:flex;justify-content:space-between;align-items:flex-end;padding:18px 4px 12px}
+.large-head h1{margin:0;font-size:34px;font-weight:700;letter-spacing:-.4px}
+.overline{font-size:13px;font-weight:600;color:var(--sec)}
+.round-btn{width:44px;height:44px;border-radius:22px;border:none;background:var(--tint);display:flex;align-items:center;justify-content:center;padding:0}
+.icon-btn{width:44px;height:44px;border-radius:22px;border:none;background:var(--card);display:flex;align-items:center;justify-content:center;padding:0;color:var(--tint)}
+
+/* البطاقات والقوائم */
+.card{background:var(--card);border-radius:14px}
+.section{margin-top:22px}
+.section-title{font-size:13px;color:var(--sec);padding:0 16px 6px}
+.section-foot{font-size:13px;color:var(--sec);padding:6px 16px 0;line-height:1.5}
+.list{background:var(--card);border-radius:14px;overflow:hidden}
+.row{display:flex;align-items:center;gap:12px;padding:6px 16px;min-height:50px;position:relative;width:100%;border:none;background:none;text-align:right}
+.row + .row::before{content:"";position:absolute;top:0;left:0;right:16px;height:.5px;background:var(--sep)}
+.row.ic + .row.ic::before{right:58px}
+.row .grow{flex:1;min-width:0;display:flex;flex-direction:column}
+.row .val{color:var(--sec)}
+.row .sub{font-size:13px;color:var(--sec);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sq{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chev{flex-shrink:0}
+.link-row{color:var(--tint)}
+.danger{color:var(--red)}
+
+/* الحلقة */
+.ring-card{display:flex;align-items:center;gap:20px;padding:18px}
+.ring{position:relative;width:118px;height:118px;flex-shrink:0}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-center b{font-size:26px;line-height:1.1}
+.ring-center span{font-size:12px;color:var(--sec)}
+.stat{display:flex;flex-direction:column}
+.stat span{font-size:13px;color:var(--sec)}
+.stat b{font-size:20px;font-weight:600}
+.stat small{font-size:14px;font-weight:400;color:var(--sec)}
+.macros{display:flex;gap:8px;padding:0 18px 16px;font-size:13px;color:var(--sec);flex-wrap:wrap}
+.macros i{font-style:normal;font-weight:600;color:var(--label)}
+
+/* أزرار */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:50px;border-radius:14px;border:none;background:var(--tint);color:#fff;font-size:17px;font-weight:600}
+.btn.gray{background:var(--card);color:var(--tint)}
+.btn:disabled{opacity:.5}
+.stepper{display:flex;align-items:center;background:var(--fill2);border-radius:9px;height:34px;flex-shrink:0}
+.stepper button{width:44px;height:34px;border:none;background:none;font-size:20px;padding:0}
+.stepper i{width:.5px;height:18px;background:var(--sep)}
+.plus{width:44px;height:44px;border:none;background:none;padding:0;display:flex;align-items:center;justify-content:center}
+.seg{display:flex;background:var(--fill);border-radius:9px;padding:2px;height:32px}
+.seg button{flex:1;border:none;background:none;font-size:13px;border-radius:7px;padding:0}
+.seg button.on{background:var(--card);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+
+/* الصورة */
+.photo{height:230px;border-radius:14px;background:var(--fill);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--sec);overflow:hidden;border:none;width:100%;padding:0}
+.photo img{width:100%;height:100%;object-fit:cover}
+.field{width:100%;border:none;background:transparent;outline:none;font-size:17px;padding:0}
+textarea.field{resize:none;min-height:70px;line-height:1.5}
+.spinner{width:22px;height:22px;border:2.5px solid var(--fill);border-top-color:var(--tint);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* الشات */
+.chat-screen{display:flex;flex-direction:column}
+.chat-head{padding:calc(env(safe-area-inset-top) + 8px) 16px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--bar);border-bottom:.5px solid var(--sep);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+.chat-head .av{width:40px;height:40px;border-radius:20px;background:var(--tint);display:flex;align-items:center;justify-content:center}
+.chat-head span{font-size:12px;font-weight:500}
+.msgs{flex:1;overflow-y:auto;padding:14px 14px 8px;display:flex;flex-direction:column;gap:6px;background:var(--card)}
+.msgs-inner{max-width:680px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:6px}
+.bub{max-width:78%;border-radius:18px;padding:8px 13px;font-size:16px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word}
+.bub.ai{align-self:flex-start;background:var(--bubble)}
+.bub.me{align-self:flex-end;background:var(--tint);color:#fff}
+.bub.note{align-self:center;background:none;color:var(--sec);font-size:12px;padding:2px}
+.composer{background:var(--card);padding:8px 14px 10px;border-top:.5px solid var(--sep)}
+.composer-inner{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;min-height:34px;padding:0 14px;border-radius:17px;border:.5px solid var(--sep);background:var(--card);font-size:14px}
+.inrow{display:flex;align-items:flex-end;gap:8px}
+.inrow textarea{flex:1;min-height:38px;max-height:120px;border-radius:19px;border:.5px solid var(--sep);padding:7px 14px;font-size:16px;background:var(--card);resize:none;outline:none;line-height:1.4}
+.send{width:38px;height:38px;border-radius:19px;border:none;background:var(--tint);display:flex;align-items:center;justify-content:center;padding:0;flex-shrink:0}
+.send:disabled{opacity:.4}
+
+/* الشريط السفلي */
+.tabbar{display:flex;justify-content:space-around;background:var(--bar);border-top:.5px solid var(--sep);padding:6px 8px calc(env(safe-area-inset-bottom) + 6px);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+.tab{flex:1;max-width:120px;display:flex;flex-direction:column;align-items:center;gap:2px;border:none;background:none;color:var(--sec);font-size:10px;font-weight:500;min-height:46px;padding:0}
+.tab.on{color:var(--tint)}
+
+/* الورقة المنبثقة */
+.sheet-wrap{position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:flex-end;justify-content:center;z-index:10;animation:fade .2s}
+.sheet{background:var(--bg);width:100%;max-width:680px;max-height:92%;overflow-y:auto;border-radius:14px 14px 0 0;padding:0 16px calc(env(safe-area-inset-bottom) + 20px);animation:up .28s cubic-bezier(.2,.8,.2,1)}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;background:var(--bg);z-index:1}
+.sheet-head b{font-size:17px}
+.sheet-head button{min-width:64px;min-height:44px;border:none;background:none;color:var(--tint);font-size:17px;padding:0}
+.grab{width:36px;height:5px;border-radius:3px;background:var(--ter);margin:6px auto 0}
+@keyframes up{from{transform:translateY(100%)}}
+@keyframes fade{from{opacity:0}}
+.toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 12px);transform:translateX(-50%);background:var(--card);color:var(--label);padding:10px 18px;border-radius:20px;font-size:15px;box-shadow:0 6px 24px rgba(0,0,0,.18);z-index:20;animation:fade .2s;max-width:90%}
+.empty{padding:22px 16px;text-align:center;color:var(--sec);font-size:15px;line-height:1.6}
+.bars{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;height:120px;padding:0 4px}
+.bars div{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;justify-content:flex-end;height:100%}
+.bars span{width:100%;border-radius:6px;min-height:4px}
+.bars small{font-size:11px;color:var(--sec)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<div id="app">
+  <main id="screen" class="screen"></main>
+  <nav class="tabbar" id="tabbar"></nav>
+</div>
+<input type="file" id="cam" accept="image/*" capture="environment" class="hidden">
+<input type="file" id="pick" accept="image/*" class="hidden">
+<input type="file" id="importFile" accept="application/json,.json" class="hidden">
+
+<script>
+/* ================== البيانات ================== */
+const KEY = 'rashaqa-data-v1';
+const DEF = {
+  settings: { apiKey: '', calGoal: 1600, stepGoal: 8000, waterGoal: 8, startWeight: null, goalWeight: null, model: '' },
+  days: {}, weights: [], chat: []
+};
+let S;
+try { S = Object.assign(structuredClone(DEF), JSON.parse(localStorage.getItem(KEY) || '{}')); S.settings = Object.assign({}, DEF.settings, S.settings); }
+catch (e) { S = structuredClone(DEF); }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast('ما قدرت أحفظ، المساحة ممتلئة'); } }
+
+const pad = n => String(n).padStart(2, '0');
+const dkey = (d = new Date()) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const day = (k = dkey()) => (S.days[k] ||= { meals: [], water: 0, steps: null });
+const nf = new Intl.NumberFormat('ar-SA', { maximumFractionDigits: 1 });
+const n = v => nf.format(Math.round((+v || 0) * 10) / 10);
+const ni = v => nf.format(Math.round(+v || 0));
+const toNum = s => parseFloat(String(s ?? '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[٫,]/g, '.'));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+const MEALS = ['فطور', 'غداء', 'عشاء', 'سناك'];
+const mealByHour = () => { const h = new Date().getHours(); return h < 11 ? 'فطور' : h < 16 ? 'غداء' : h < 22 ? 'عشاء' : 'سناك'; };
+const mealCal = m => m.items.reduce((a, i) => a + i.cal * i.qty, 0);
+const mealMacro = (m, k) => m.items.reduce((a, i) => a + (i[k] || 0) * i.qty, 0);
+function totals(k = dkey()) {
+  const d = day(k); let cal = 0, p = 0, c = 0, f = 0;
+  d.meals.forEach(m => { cal += mealCal(m); p += mealMacro(m, 'p'); c += mealMacro(m, 'c'); f += mealMacro(m, 'f'); });
+  return { cal, p, c, f };
+}
+const lastWeight = () => S.weights.length ? S.weights[S.weights.length - 1].w : null;
+
+/* ================== الأيقونات ================== */
+const I = {
+  today: '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
+  cam: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+  prog: '<path d="M5 20v-8"/><path d="M12 20V6"/><path d="M19 20v-9"/>',
+  chat: '<path d="M4 5h16v11H9l-5 4z"/>',
+  gear: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
+  walk: '<circle cx="13" cy="4" r="1.5"/><path d="M10 21l2-6 3 3v3"/><path d="M8 12l2-4 4 1 2 3 3 1"/>',
+  drop: '<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
+  scale: '<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 10l3 2 3-2"/>',
+  photo: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/>',
+  spark: '<path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4z"/><path d="M18 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>',
+  up: '<path d="M12 19V5"/><path d="M6 11l6-6 6 6"/>',
+  pen: '<path d="M4 20h4L19 9l-4-4L4 16z"/>'
+};
+const svg = (k, size = 24, color = 'currentColor', w = 1.9) => `<svg aria-hidden="true" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg>`;
+const chev = '<svg class="chev" aria-hidden="true" width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="var(--ter)" stroke-width="2" stroke-linecap="round"><path d="M7.5 1.5L1.5 7.5l6 6"/></svg>';
+const plusIcon = '<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="var(--tint)"/><path d="M12 7v10M7 12h10" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
+const minusIcon = '<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="var(--fill)"/><path d="M7 12h10" stroke="var(--label)" stroke-width="2" stroke-linecap="round"/></svg>';
+
+/* ================== التنقل ================== */
+let tab = 'today';
+const TABS = [['today', 'اليوم', 'today'], ['scan', 'صوّري', 'cam'], ['progress', 'التقدم', 'prog'], ['chat', 'المساعد', 'chat']];
+const $ = s => document.querySelector(s);
+function go(t) { tab = t; render(); $('#screen').scrollTop = 0; if (t === 'chat') scrollChat(); }
+function renderTabs() {
+  $('#tabbar').innerHTML = TABS.map(([k, l, ic]) =>
+    `<button class="tab ${tab === k ? 'on' : ''}" data-go="${k}" aria-label="${l}">${svg(ic, 26)}${l}</button>`).join('');
+}
+function render() {
+  renderTabs();
+  const el = $('#screen');
+  el.className = 'screen' + (tab === 'chat' ? ' chat-screen' : '');
+  el.style.paddingTop = tab === 'chat' ? '0' : '';
+  el.innerHTML = { today: vToday, scan: vScan, progress: vProgress, chat: vChat }[tab]();
+  if (tab === 'chat') { el.style.overflow = 'hidden'; scrollChat(); } else el.style.overflow = '';
+}
+
+/* ================== اليوم ================== */
+function vToday() {
+  const t = totals(), d = day(), g = S.settings.calGoal || 1600;
+  const left = g - t.cal, pct = Math.min(t.cal / g, 1), C = 314.16;
+  const over = left < 0;
+  const date = new Date().toLocaleDateString('ar-SA-u-ca-gregory', { weekday: 'long', day: 'numeric', month: 'long' });
+  const meals = MEALS.map(type => {
+    const list = d.meals.filter(m => m.type === type);
+    if (!list.length) return '';
+    return list.map(m => `<button class="row" data-meal="${m.id}">
+      <div class="grow"><span>${type}</span><span class="sub">${esc(m.items.map(i => i.name).join('، '))}</span></div>
+      <span class="val">${ni(mealCal(m))}</span>${chev}</button>`).join('');
+  }).join('');
+  const w = lastWeight();
+  return `<div class="wrap">
+    <div class="large-head">
+      <div><div class="overline">${date}</div><h1>اليوم</h1></div>
+      <div style="display:flex;gap:10px">
+        <button class="icon-btn" data-act="settings" aria-label="الإعدادات">${svg('gear', 22)}</button>
+        <button class="round-btn" data-go="scan" aria-label="صوّري وجبة">${svg('cam', 22, '#fff', 2)}</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ring-card">
+        <div class="ring">
+          <svg role="img" aria-label="أكلتِ ${ni(t.cal)} من ${ni(g)} سعرة" width="118" height="118" viewBox="0 0 118 118">
+            <circle cx="59" cy="59" r="50" fill="none" stroke="var(--track)" stroke-width="14"/>
+            <circle cx="59" cy="59" r="50" fill="none" stroke="${over ? 'var(--orange)' : 'var(--green)'}" stroke-width="14" stroke-linecap="round"
+              stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - pct)}" transform="rotate(-90 59 59)" style="transition:stroke-dashoffset .6s"/>
+          </svg>
+          <div class="ring-center"><b>${ni(Math.abs(left))}</b><span>${over ? 'زيادة' : 'باقي'}</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="stat"><span>أكلتِ</span><b>${ni(t.cal)} <small>سعرة</small></b></div>
+          <div class="stat"><span>الهدف</span><b>${ni(g)} <small>سعرة</small></b></div>
+        </div>
+      </div>
+      <div class="macros">بروتين <i>${ni(t.p)}غ</i> · كارب <i>${ni(t.c)}غ</i> · دهون <i>${ni(t.f)}غ</i></div>
+    </div>
+
+    <div class="section list">
+      <button class="row ic" data-act="steps">
+        <span class="sq" style="background:var(--orange)">${svg('walk', 18, '#fff', 2.2)}</span>
+        <span class="grow">الخطوات</span>
+        <span class="val">${d.steps == null ? 'أضيفي' : ni(d.steps)}</span>${chev}
+      </button>
+      <div class="row ic">
+        <span class="sq" style="background:var(--blue)">${svg('drop', 18, '#fff', 2.2)}</span>
+        <span class="grow">الموية</span>
+        <span class="val">${ni(d.water)} من ${ni(S.settings.waterGoal)}</span>
+        <button class="plus" data-act="water-" aria-label="شيلي كوب">${minusIcon}</button>
+        <button class="plus" data-act="water+" aria-label="أضيفي كوب">${plusIcon}</button>
+      </div>
+      <button class="row ic" data-act="weight">
+        <span class="sq" style="background:var(--purple)">${svg('scale', 18, '#fff', 2.2)}</span>
+        <span class="grow">الوزن</span>
+        <span class="val">${w == null ? 'سجّلي' : n(w) + ' كغ'}</span>${chev}
+      </button>
+    </div>
+
+    <div class="section">
+      <div class="section-title">الوجبات</div>
+      <div class="list">${meals || `<div class="empty">ما سجلتي شي اليوم.<br>صوّري وجبتك أو اكتبي وش أكلتي.</div>`}</div>
+    </div>
+  </div>`;
+}
+
+/* ================== التصوير ================== */
+let scan = { img: null, text: '', items: [], loading: false, error: '', type: mealByHour(), analyzed: false };
+function resetScan() { scan = { img: null, text: '', items: [], loading: false, error: '', type: mealByHour(), analyzed: false }; }
+function vScan() {
+  const total = scan.items.reduce((a, i) => a + i.cal * i.qty, 0);
+  const items = scan.items.map((it, i) => `<div class="row" style="min-height:60px">
+      <div class="grow"><span>${esc(it.name)}</span><span class="sub">${n(it.qty)} ${esc(it.unit)} · ${ni(it.cal * it.qty)} سعرة</span></div>
+      <div class="stepper"><button data-qty="${i}:-1" aria-label="أقل">−</button><i></i><button data-qty="${i}:1" aria-label="أكثر">+</button></div>
+    </div>`).join('');
+  return `<div class="wrap">
+    <div class="large-head"><h1>${scan.analyzed ? 'وجبة ال' + scan.type : 'صوّري وجبتك'}</h1>
+      ${scan.img || scan.analyzed ? `<button class="icon-btn" style="width:auto;padding:0 14px;font-size:17px" data-act="scan-reset">جديد</button>` : ''}</div>
+
+    <button class="photo" data-act="${scan.img ? 'pick' : 'cam'}" aria-label="${scan.img ? 'غيّري الصورة' : 'افتحي الكاميرا'}">
+      ${scan.img ? `<img src="${scan.img}" alt="صورة الوجبة">` : `${svg('cam', 44, 'currentColor', 1.5)}<span style="font-size:15px">اضغطي وصوّري الأكل</span>`}
+    </button>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn gray" data-act="cam">${svg('cam', 20)} الكاميرا</button>
+      <button class="btn gray" data-act="pick">${svg('photo', 20)} من الصور</button>
+    </div>
+
+    ${!scan.analyzed ? `
+    <div class="section">
+      <div class="section-title">أو اكتبي وش أكلتي (اختياري)</div>
+      <div class="card" style="padding:12px 16px"><label for="mealText" class="sr">وصف الوجبة</label>
+        <textarea id="mealText" class="field" placeholder="مثلاً: صحن كبسة دجاج وكاسة لبن">${esc(scan.text)}</textarea></div>
+      <div class="section-foot">إذا صوّرتي وكتبتي مع بعض، يطلع الحساب أدق.</div>
+    </div>
+    <div class="section">
+      <button class="btn" data-act="analyze" ${scan.loading ? 'disabled' : ''}>${scan.loading ? '<span class="spinner" style="border-color:rgba(255,255,255,.4);border-top-color:#fff"></span> أحسب…' : 'احسبي السعرات'}</button>
+      ${scan.error ? `<div class="section-foot danger">${esc(scan.error)}</div>` : ''}
+    </div>` : `
+    <div class="section">
+      <div class="seg" role="tablist">${MEALS.map(m => `<button role="tab" aria-selected="${scan.type === m}" class="${scan.type === m ? 'on' : ''}" data-type="${m}">${m}</button>`).join('')}</div>
+    </div>
+    <div class="section">
+      <div class="section-title">لقينا في الصورة</div>
+      <div class="list">${items || '<div class="empty">ما لقيت أكل. أضيفي صنف بنفسك.</div>'}
+        <button class="row link-row" data-act="add-item">إضافة صنف</button>
+      </div>
+      <div class="section-foot">الأرقام تقريبية، عدّلي الكمية إذا ما كانت دقيقة.</div>
+    </div>
+    <div class="section list"><div class="row"><b class="grow">المجموع</b><b>${ni(total)} سعرة</b></div></div>
+    <div class="section"><button class="btn" data-act="save-meal" ${scan.items.length ? '' : 'disabled'}>احفظي في ال${scan.type}</button></div>`}
+  </div>`;
+}
+async function onPhoto(file) {
+  if (!file) return;
+  scan.img = await shrink(file, 1024);
+  if (tab !== 'scan') tab = 'scan';
+  render();
+}
+function shrink(file, max) {
+  return new Promise((res, rej) => {
+    const url = URL.createObjectURL(file), im = new Image();
+    im.onload = () => {
+      const k = Math.min(1, max / Math.max(im.width, im.height));
+      const c = document.createElement('canvas'); c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+      c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+      res(c.toDataURL('image/jpeg', 0.82));
+    };
+    im.onerror = rej; im.src = url;
+  });
+}
+const FOOD_PROMPT = `أنت خبير تغذية. حلّل الوجبة (من الصورة و/أو الوصف) وقدّر كل صنف لوحده.
+- اكتب أسماء الأصناف بالعربي وبأسماء الأكلات السعودية والخليجية إذا تنطبق (كبسة، مندي، جريش، مرقوق، سليق...).
+- قدّر الكمية بوحدة سهلة (كوب، صحن، حبة، ملعقة، شريحة، غ).
+- احسب السعرات والبروتين والكارب والدهون للكمية المقدّرة، وانتبه للزيت والسمن والصوصات.
+- إذا ما فيه أكل، رجّع قائمة فاضية.
+رجّع JSON فقط بهذا الشكل:
+{"items":[{"name":"رز أبيض","unit":"كوب","qty":1,"calories":205,"protein":4,"carbs":45,"fat":0.5}]}`;
+async function analyze() {
+  scan.text = ($('#mealText')?.value || '').trim();
+  if (!scan.img && !scan.text) { scan.error = 'صوّري الأكل أو اكتبي وش أكلتي.'; render(); return; }
+  if (!S.settings.apiKey) { openSettings(); toast('حطي مفتاح Gemini أول'); return; }
+  scan.loading = true; scan.error = ''; render();
+  try {
+    const parts = [{ text: FOOD_PROMPT + (scan.text ? `\n\nوصف المستخدمة: ${scan.text}` : '') }];
+    if (scan.img) parts.push({ inline_data: { mime_type: 'image/jpeg', data: scan.img.split(',')[1] } });
+    const out = await gemini([{ role: 'user', parts }], { json: true });
+    const data = JSON.parse(out.replace(/^```(json)?|```$/g, '').trim());
+    scan.items = (data.items || []).map(x => {
+      const q = Math.max(+x.qty || 1, 0.25);
+      return { name: String(x.name || 'صنف'), unit: String(x.unit || 'حصة'), qty: q,
+        cal: (+x.calories || 0) / q, p: (+x.protein || 0) / q, c: (+x.carbs || 0) / q, f: (+x.fat || 0) / q };
+    });
+    scan.analyzed = true;
+  } catch (e) { scan.error = e.message || 'صار خطأ، جربي مرة ثانية.'; }
+  scan.loading = false; render();
+}
+function saveMeal() {
+  const items = scan.items.filter(i => i.qty > 0);
+  if (!items.length) return;
+  day().meals.push({ id: uid(), type: scan.type, items, time: Date.now() });
+  save(); toast(`انحفظت في ال${scan.type}`); resetScan(); go('today');
+}
+
+/* ================== التقدم ================== */
+let range = 'month';
+function vProgress() {
+  const cur = lastWeight(), start = S.settings.startWeight ?? (S.weights[0]?.w ?? null), goal = S.settings.goalWeight;
+  const lost = cur != null && start != null ? start - cur : null;
+  const need = start != null && goal != null ? start - goal : null;
+  const left = cur != null && goal != null ? cur - goal : null;
+  const pct = lost != null && need > 0 ? Math.max(0, Math.min(lost / need, 1)) : 0;
+  const days7 = [...Array(7)].map((_, i) => { const d = new Date(); d.setDate(d.getDate() - 6 + i); return d; });
+  const g = S.settings.calGoal || 1600;
+  const cals = days7.map(d => totals(dkey(d)).cal);
+  const good = cals.filter(c => c > 0 && c <= g).length;
+  let msg = 'سجّلي وزنك عشان نتابع تقدمك';
+  if (lost != null) msg = lost > 0.05 ? `نزلتِ ${n(lost)} كغ` : lost < -0.05 ? `زاد وزنك ${n(-lost)} كغ` : 'وزنك ثابت';
+  const dot = (c, d, i) => {
+    const bg = c === 0 ? 'var(--fill)' : c <= g ? 'var(--green)' : 'var(--orange)';
+    const mark = c === 0 ? '' : c <= g ? '<path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' : '<path d="M12 7v6M12 16.5v.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>';
+    const lbl = i === 6 ? 'اليوم' : d.toLocaleDateString('ar-SA-u-ca-gregory', { weekday: 'short' });
+    return `<div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1">
+      <svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="${bg}"/>${mark}</svg>
+      <small style="font-size:11px;color:var(--sec)">${lbl}</small></div>`;
+  };
+  return `<div class="wrap">
+    <div class="large-head"><h1>التقدم</h1></div>
+
+    <div class="card" style="padding:22px 18px;text-align:center">
+      <div style="font-size:15px;color:var(--sec)">وزنك الحين</div>
+      <div style="font-size:44px;font-weight:700;line-height:1.2">${cur == null ? '—' : n(cur)} <span style="font-size:20px;font-weight:500;color:var(--sec)">كغ</span></div>
+      <div style="font-size:20px;font-weight:600;color:${lost != null && lost > 0.05 ? 'var(--green)' : 'var(--label)'};margin-top:4px">${msg}</div>
+      ${need > 0 ? `
+      <div style="height:12px;border-radius:6px;background:var(--track);margin:18px 0 8px;overflow:hidden">
+        <div style="height:100%;width:${pct * 100}%;background:var(--green);border-radius:6px;transition:width .6s"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--sec)">
+        <span>البداية ${n(start)}</span><span>${left > 0 ? `باقي ${n(left)} كغ` : 'وصلتِ الهدف!'}</span><span>الهدف ${n(goal)}</span></div>` :
+      `<div style="font-size:13px;color:var(--sec);margin-top:10px">حددي وزنك المطلوب عشان يطلع لك كم باقي</div>`}
+    </div>
+
+    <div class="section"><button class="btn" data-act="weight">سجّلي وزن اليوم</button></div>
+
+    <div class="section card" style="padding:18px 12px">
+      <div style="text-align:center;font-size:17px;font-weight:600;margin-bottom:4px">هالأسبوع</div>
+      <div style="text-align:center;font-size:15px;color:var(--sec);margin-bottom:16px">${good === 0 ? 'ولا يوم' : good === 1 ? 'يوم واحد' : good === 2 ? 'يومين' : ni(good) + (good > 10 ? ' يوم' : ' أيام')} التزمتِ فيها بالسعرات من ٧</div>
+      <div style="display:flex;justify-content:space-between">${days7.map((d, i) => dot(cals[i], d, i)).join('')}</div>
+      <div style="display:flex;justify-content:center;gap:16px;font-size:12px;color:var(--sec);margin-top:14px">
+        ${[['var(--green)','ممتاز'],['var(--orange)','زيادة'],['var(--fill)','ما سجلتي']].map(([c,l]) => `<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:5px;background:${c}"></span>${l}</span>`).join('')}</div>
+    </div>
+
+    <div class="section list">
+      <button class="row" data-act="edit-start"><span class="grow">وزن البداية</span><span class="val">${start == null ? 'حدديه' : n(start) + ' كغ'}</span>${chev}</button>
+      <button class="row" data-act="edit-goalw"><span class="grow">الوزن المطلوب</span><span class="val">${goal == null ? 'حدديه' : n(goal) + ' كغ'}</span>${chev}</button>
+    </div>
+  </div>`;
+}
+function chart(pts, goal) {
+  if (pts.length < 2) return `<div class="empty" style="padding:28px 0">يحتاج وزنين أو أكثر عشان يطلع الرسم</div>`;
+  const W = 340, H = 140, P = 12;
+  const vals = pts.map(p => p.w).concat(goal != null ? [goal] : []);
+  let lo = Math.min(...vals) - 0.5, hi = Math.max(...vals) + 0.5;
+  const t0 = new Date(pts[0].d).getTime(), t1 = new Date(pts[pts.length - 1].d).getTime() || t0 + 1;
+  // RTL: الأقدم يمين والأحدث يسار
+  const x = t => W - P - ((t - t0) / Math.max(t1 - t0, 1)) * (W - 2 * P);
+  const y = v => P + (hi - v) / (hi - lo) * (H - 2 * P);
+  const line = pts.map(p => `${x(new Date(p.d).getTime()).toFixed(1)},${y(p.w).toFixed(1)}`).join(' ');
+  const last = pts[pts.length - 1];
+  return `<svg role="img" aria-label="رسم الوزن" viewBox="0 0 ${W} ${H}" width="100%" height="${H}" preserveAspectRatio="none" style="overflow:visible">
+    ${[0.25, 0.5, 0.75].map(k => `<line x1="0" x2="${W}" y1="${H * k}" y2="${H * k}" stroke="var(--fill)" stroke-width="1"/>`).join('')}
+    ${goal != null ? `<line x1="0" x2="${W}" y1="${y(goal)}" y2="${y(goal)}" stroke="var(--green)" stroke-width="1.5" stroke-dasharray="5 5"/>` : ''}
+    <polyline points="${line}" fill="none" stroke="var(--purple)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="${x(new Date(last.d).getTime())}" cy="${y(last.w)}" r="5.5" fill="var(--purple)" stroke="var(--card)" stroke-width="2.5"/>
+  </svg>`;
+}
+
+/* ================== المساعد ================== */
+let chatBusy = false;
+const CHIPS = ['كيف يومي؟', 'اقترح سناك صحي', 'وش أتعشى؟', 'فطور بسيط'];
+function vChat() {
+  const msgs = S.chat.length ? S.chat : [{ role: 'ai', text: 'هلا! اسأليني عن أكلك أو خطتك، أو قولي لي وش أكلتي وأسجّله لك.' }];
+  return `<div class="chat-head"><span class="av">${svg('spark', 22, '#fff', 2)}</span><span>المساعد</span></div>
+    <div class="msgs" id="msgs"><div class="msgs-inner">
+      ${msgs.map(m => `<div class="bub ${m.role}">${esc(m.text)}</div>`).join('')}
+      ${chatBusy ? '<div class="bub ai"><span class="spinner" style="display:inline-block;width:16px;height:16px;vertical-align:middle"></span></div>' : ''}
+    </div></div>
+    <div class="composer"><div class="composer-inner">
+      <div class="chips">${CHIPS.map(c => `<button class="chip" data-chip="${esc(c)}">${c}</button>`).join('')}</div>
+      <div class="inrow"><label for="msg" class="sr">رسالتك</label>
+        <textarea id="msg" rows="1" placeholder="اكتبي رسالة"></textarea>
+        <button class="send" data-act="send" aria-label="إرسال" ${chatBusy ? 'disabled' : ''}>${svg('up', 18, '#fff', 2.4)}</button></div>
+    </div></div>`;
+}
+function scrollChat() { requestAnimationFrame(() => { const m = $('#msgs'); if (m) m.scrollTop = m.scrollHeight; }); }
+function chatSystem() {
+  const t = totals(), d = day();
+  const todayMeals = d.meals.map(m => `${m.type}: ${m.items.map(i => `${i.name} (${Math.round(i.cal * i.qty)})`).join('، ')}`).join(' | ') || 'لا شيء';
+  return `أنت مساعد تغذية ولياقة لطيف داخل تطبيق «رشاقة». تكلّم بلهجة سعودية بسيطة وخاطب المستخدمة بصيغة المؤنث. خلّ ردودك قصيرة وعملية.
+معلوماتها اليوم: الهدف ${S.settings.calGoal} سعرة، أكلت ${Math.round(t.cal)} (بروتين ${Math.round(t.p)}غ، كارب ${Math.round(t.c)}غ، دهون ${Math.round(t.f)}غ). الوجبات: ${todayMeals}.
+الخطوات: ${d.steps ?? 'غير مسجلة'} من ${S.settings.stepGoal}. الموية: ${d.water} من ${S.settings.waterGoal} أكواب.
+الوزن الحالي: ${lastWeight() ?? 'غير مسجل'}، الهدف: ${S.settings.goalWeight ?? 'غير محدد'}.
+قواعد مهمة: لا تنصح بأقل من ١٢٠٠ سعرة باليوم ولا بحميات قاسية أو صيام طويل أو أدوية تنحيف. شجّعها بدون مبالغة. إذا ذكرت تعب أو دوخة أو أعراض أو أشياء تقلق، انصحها تراجع طبيب.
+إذا طلبت منك تسجّل أكل (أو قالت أكلت كذا وتبي تسجله)، رد عادي ثم أضف في آخر سطر لوحده بالضبط:
+LOG{"type":"فطور|غداء|عشاء|سناك","items":[{"name":"...","unit":"...","qty":1,"calories":0,"protein":0,"carbs":0,"fat":0}]}`;
+}
+async function send(text) {
+  text = (text || '').trim(); if (!text || chatBusy) return;
+  if (!S.settings.apiKey) { openSettings(); toast('حطي مفتاح Gemini أول'); return; }
+  S.chat.push({ role: 'me', text }); chatBusy = true; save(); render();
+  try {
+    const hist = S.chat.filter(m => m.role !== 'note').slice(-20).map(m => ({ role: m.role === 'me' ? 'user' : 'model', parts: [{ text: m.text }] }))
+      .filter(m => m.role === 'user' || m.parts[0].text);
+    while (hist.length && hist[0].role !== 'user') hist.shift();
+    let out = await gemini(hist, { system: chatSystem() });
+    const m = out.match(/LOG\s*(\{[\s\S]*\})\s*$/);
+    if (m) {
+      out = out.slice(0, m.index).trim();
+      try {
+        const j = JSON.parse(m[1]);
+        const items = (j.items || []).map(x => { const q = Math.max(+x.qty || 1, .25); return { name: String(x.name), unit: String(x.unit || 'حصة'), qty: q, cal: (+x.calories || 0) / q, p: (+x.protein || 0) / q, c: (+x.carbs || 0) / q, f: (+x.fat || 0) / q }; });
+        if (items.length) {
+          const type = MEALS.includes(j.type) ? j.type : mealByHour();
+          day().meals.push({ id: uid(), type, items, time: Date.now() });
+          S.chat.push({ role: 'ai', text: out || 'تم!' });
+          S.chat.push({ role: 'note', text: `انضاف لل${type}: ${Math.round(items.reduce((a, i) => a + i.cal * i.qty, 0))} سعرة` });
+          out = null;
+        }
+      } catch (e) { }
+    }
+    if (out !== null) S.chat.push({ role: 'ai', text: out || '…' });
+  } catch (e) { S.chat.push({ role: 'note', text: e.message || 'صار خطأ' }); }
+  chatBusy = false; if (S.chat.length > 200) S.chat = S.chat.slice(-200); save(); render();
+}
+
+/* ================== Gemini ================== */
+const API = 'https://generativelanguage.googleapis.com/v1beta';
+async function modelCandidates() {
+  const fallback = ['gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'gemini-2.5-flash', 'gemini-2.5-flash-lite'];
+  let found = [];
+  try {
+    const r = await fetch(`${API}/models?pageSize=1000`, { headers: { 'x-goog-api-key': S.settings.apiKey } });
+    if (r.status === 400 || r.status === 403) throw new Error('KEY');
+    const j = await r.json();
+    found = (j.models || []).filter(m => (m.supportedGenerationMethods || []).includes('generateContent'))
+      .map(m => m.name.replace('models/', ''))
+      .filter(id => /flash/.test(id) && !/(tts|live|image|audio|transcribe|omni|embed|robotics|computer|exp|preview|latest)/.test(id))
+      .sort((a, b) => {
+        const v = s => parseFloat((s.match(/gemini-(\d+(\.\d+)?)/) || [0, 0])[1]);
+        return (v(b) - v(a)) || (a.includes('lite') - b.includes('lite'));
+      });
+  } catch (e) { if (e.message === 'KEY') throw new Error('مفتاح Gemini غلط، تأكدي منه في الإعدادات.'); }
+  const list = [S.settings.model, ...found, ...fallback].filter(Boolean);
+  return [...new Set(list)];
+}
+async function gemini(contents, { json = false, system = '' } = {}) {
+  const body = { contents, generationConfig: { temperature: json ? 0.2 : 0.7 } };
+  if (json) body.generationConfig.responseMimeType = 'application/json';
+  if (system) body.systemInstruction = { parts: [{ text: system }] };
+  if (!navigator.onLine) throw new Error('ما فيه نت. الحساب بالذكاء يحتاج نت.');
+  let lastErr = 'صار خطأ، جربي مرة ثانية.', limited = false;
+  for (const model of await modelCandidates()) {
+    let r;
+    try {
+      r = await fetch(`${API}/models/${model}:generateContent`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': S.settings.apiKey }, body: JSON.stringify(body)
+      });
+    } catch (e) { throw new Error('ما قدرت أوصل للسيرفر، تأكدي من النت.'); }
+    if (r.ok) {
+      const j = await r.json();
+      const text = (j.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || '').join('').trim();
+      if (S.settings.model !== model) { S.settings.model = model; save(); }
+      return text;
+    }
+    if (r.status === 400 || r.status === 401) {
+      const t = await r.text();
+      if (/API key|API_KEY/i.test(t)) throw new Error('مفتاح Gemini غلط، تأكدي منه في الإعدادات.');
+      lastErr = 'الطلب ما ضبط، جربي صورة ثانية.';
+    }
+    if (r.status === 429) limited = true;
+    if (S.settings.model === model) { S.settings.model = ''; save(); }
+  }
+  throw new Error(limited ? 'وصلتِ حد الاستخدام المجاني لهالحين، جربي بعد شوي.' : lastErr);
+}
+
+/* ================== الأوراق المنبثقة ================== */
+function sheet(title, html, { done = 'تم', onDone = null } = {}) {
+  closeSheet();
+  const w = document.createElement('div'); w.className = 'sheet-wrap'; w.id = 'sheet';
+  w.innerHTML = `<div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(title)}"><div class="grab"></div>
+    <div class="sheet-head"><button data-act="close">إلغاء</button><b>${esc(title)}</b><button data-act="sheet-done" style="font-weight:600">${done}</button></div>${html}</div>`;
+  w.addEventListener('click', e => { if (e.target === w) closeSheet(); });
+  w._done = onDone; document.body.appendChild(w);
+  setTimeout(() => w.querySelector('input,textarea')?.focus(), 300);
+}
+function closeSheet() { $('#sheet')?.remove(); }
+function numSheet(title, label, value, unit, cb) {
+  sheet(title, `<div class="list"><div class="row"><label for="numIn" class="grow">${label}</label>
+    <input id="numIn" class="field" inputmode="decimal" style="width:110px;text-align:left" value="${value ?? ''}" placeholder="٠">
+    <span class="val">${unit}</span></div></div>`, { onDone: () => { const v = toNum($('#numIn').value); if (isNaN(v)) return toast('اكتبي رقم'); cb(v); closeSheet(); render(); } });
+}
+function openSettings() {
+  const st = S.settings;
+  const r = (id, l, v, u, mode = 'numeric') => `<div class="row"><label for="${id}" class="grow">${l}</label><input id="${id}" class="field" inputmode="${mode}" style="width:110px;text-align:left" value="${v ?? ''}"><span class="val">${u}</span></div>`;
+  sheet('الإعدادات', `
+    <div class="section-title">مفتاح Gemini (مجاني)</div>
+    <div class="list"><div class="row"><label for="kIn" class="sr">المفتاح</label><input id="kIn" class="field" dir="ltr" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="AIza…" value="${esc(st.apiKey)}"></div></div>
+    <div class="section-foot">من موقع aistudio.google.com ← Get API key. ينحفظ في جوالك بس.</div>
+    <div class="section"><div class="section-title">الأهداف</div><div class="list">
+      ${r('gCal', 'السعرات باليوم', st.calGoal, 'سعرة')}${r('gSteps', 'الخطوات', st.stepGoal, 'خطوة')}${r('gWater', 'الموية', st.waterGoal, 'كوب')}
+      ${r('gStart', 'وزن البداية', st.startWeight, 'كغ', 'decimal')}${r('gW', 'الوزن المطلوب', st.goalWeight, 'كغ', 'decimal')}
+    </div><div class="section-foot">الأفضل ما تنزل السعرات عن ١٢٠٠ باليوم، والنزول الصحي تقريباً نص كيلو إلى كيلو بالأسبوع.</div></div>
+    <div class="section"><div class="section-title">النسخة الاحتياطية</div><div class="list">
+      <button class="row link-row" data-act="export">حفظ نسخة من بياناتي</button>
+      <button class="row link-row" data-act="import">استرجاع نسخة</button>
+    </div><div class="section-foot">لا تمسحين بيانات Safari من الإعدادات، يمسح بيانات التطبيق. سوي نسخة كل فترة.</div></div>
+    <div class="section list"><button class="row danger" data-act="clear-chat">مسح المحادثة</button></div>`,
+    { onDone: () => {
+      st.apiKey = $('#kIn').value.trim(); st.model = st.model && st.apiKey ? st.model : '';
+      const g = (id, d) => { const v = toNum($('#' + id).value); return isNaN(v) ? d : v; };
+      st.calGoal = Math.max(g('gCal', 1600), 800); st.stepGoal = g('gSteps', 8000); st.waterGoal = g('gWater', 8);
+      st.startWeight = g('gStart', null); st.goalWeight = g('gW', null);
+      save(); closeSheet(); render(); toast('انحفظت الإعدادات');
+    } });
+}
+function stepsSheet() {
+  const d = day();
+  sheet('الخطوات', `
+    <div class="list"><div class="row"><label for="numIn" class="grow">خطوات اليوم</label>
+      <input id="numIn" class="field" inputmode="numeric" style="width:120px;text-align:left" value="${d.steps ?? ''}" placeholder="٠"></div></div>
+    <div class="section list">
+      <button class="row link-row" data-act="run-shortcut">جيبي الخطوات من تطبيق الصحة</button>
+      <button class="row link-row" data-act="paste-steps">لصق الرقم المنسوخ</button>
+    </div>
+    <div class="section-foot">«جيبي الخطوات» يشغّل اختصار «خطوات رشاقة» وينسخ الرقم، ارجعي هنا واضغطي «لصق».</div>`,
+    { onDone: () => { const v = toNum($('#numIn').value); if (!isNaN(v)) { day().steps = Math.round(v); save(); } closeSheet(); render(); } });
+}
+function mealSheet(id) {
+  const d = day(), m = d.meals.find(x => x.id === id); if (!m) return;
+  sheet(m.type, `<div class="list">${m.items.map(i => `<div class="row"><div class="grow"><span>${esc(i.name)}</span><span class="sub">${n(i.qty)} ${esc(i.unit)}</span></div><span class="val">${ni(i.cal * i.qty)}</span></div>`).join('')}
+    <div class="row"><b class="grow">المجموع</b><b>${ni(mealCal(m))} سعرة</b></div></div>
+    <div class="section list"><button class="row danger" data-act="del-meal" data-id="${m.id}">حذف الوجبة</button></div>`, { onDone: closeSheet });
+}
+function addItemSheet() {
+  sheet('إضافة صنف', `<div class="list">
+    <div class="row"><label for="iName" class="sr">الاسم</label><input id="iName" class="field" placeholder="اسم الصنف"></div>
+    <div class="row"><label for="iCal" class="grow">السعرات</label><input id="iCal" class="field" inputmode="numeric" style="width:110px;text-align:left" placeholder="٠"></div>
+  </div>`, { done: 'إضافة', onDone: () => {
+    const name = $('#iName').value.trim(), cal = toNum($('#iCal').value);
+    if (!name || isNaN(cal)) return toast('اكتبي الاسم والسعرات');
+    scan.items.push({ name, unit: 'حصة', qty: 1, cal, p: 0, c: 0, f: 0 }); scan.analyzed = true; closeSheet(); render();
+  } });
+}
+
+/* ================== أدوات ================== */
+let toastT;
+function toast(msg) {
+  document.querySelector('.toast')?.remove(); clearTimeout(toastT);
+  const t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); t.textContent = msg;
+  document.body.appendChild(t); toastT = setTimeout(() => t.remove(), 2400);
+}
+async function exportData() {
+  const blob = new Blob([JSON.stringify({ ...S, settings: { ...S.settings, apiKey: '' } })], { type: 'application/json' });
+  const name = `rashaqa-${dkey()}.json`, file = new File([blob], name, { type: 'application/json' });
+  if (navigator.canShare?.({ files: [file] })) { try { await navigator.share({ files: [file], title: 'نسخة رشاقة' }); return; } catch (e) { return; } }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click();
+}
+async function importData(file) {
+  try {
+    const j = JSON.parse(await file.text()); if (!j.days) throw 0;
+    const key = S.settings.apiKey;
+    S = Object.assign(structuredClone(DEF), j); S.settings = Object.assign({}, DEF.settings, j.settings, { apiKey: key });
+    save(); closeSheet(); render(); toast('رجعت بياناتك');
+  } catch (e) { toast('الملف مو صحيح'); }
+}
+
+/* ================== الأحداث ================== */
+document.addEventListener('click', async e => {
+  const b = e.target.closest('button,[data-go]'); if (!b) return;
+  const d = b.dataset;
+  if (d.go) return go(d.go);
+  if (d.meal) return mealSheet(d.meal);
+  if (d.range) { range = d.range; return render(); }
+  if (d.type) { scan.type = d.type; return render(); }
+  if (d.chip) return send(d.chip);
+  if (d.qty) { const [i, s] = d.qty.split(':').map(Number); const it = scan.items[i]; it.qty = Math.max(0, Math.round((it.qty + s * 0.5) * 2) / 2); if (it.qty === 0) scan.items.splice(i, 1); return render(); }
+  switch (d.act) {
+    case 'settings': return openSettings();
+    case 'close': return closeSheet();
+    case 'sheet-done': return $('#sheet')?._done?.();
+    case 'cam': return $('#cam').click();
+    case 'pick': return $('#pick').click();
+    case 'analyze': return analyze();
+    case 'scan-reset': resetScan(); return render();
+    case 'save-meal': return saveMeal();
+    case 'add-item': return addItemSheet();
+    case 'water+': day().water++; save(); return render();
+    case 'water-': day().water = Math.max(0, day().water - 1); save(); return render();
+    case 'steps': return stepsSheet();
+    case 'run-shortcut': location.href = 'shortcuts://run-shortcut?name=' + encodeURIComponent('خطوات رشاقة'); return;
+    case 'paste-steps':
+      try { const t = await navigator.clipboard.readText(); const v = toNum(t); if (isNaN(v)) throw 0; $('#numIn').value = Math.round(v); toast('انلصق الرقم، اضغطي تم'); }
+      catch (err) { toast('ما لقيت رقم منسوخ'); } return;
+    case 'weight': return numSheet('وزن اليوم', 'الوزن', lastWeight() ?? '', 'كغ', v => {
+      const k = dkey(); S.weights = S.weights.filter(x => x.d !== k); S.weights.push({ d: k, w: v }); S.weights.sort((a, b) => a.d < b.d ? -1 : 1);
+      if (S.settings.startWeight == null) S.settings.startWeight = v; save(); toast('انحفظ الوزن'); });
+    case 'edit-start': return numSheet('وزن البداية', 'الوزن', S.settings.startWeight ?? '', 'كغ', v => { S.settings.startWeight = v; save(); });
+    case 'edit-goalw': return numSheet('الوزن المطلوب', 'الوزن', S.settings.goalWeight ?? '', 'كغ', v => { S.settings.goalWeight = v; save(); });
+    case 'del-meal': { const dd = day(); dd.meals = dd.meals.filter(m => m.id !== d.id); save(); closeSheet(); render(); return toast('انحذفت الوجبة'); }
+    case 'send': { const v = $('#msg').value; $('#msg').value = ''; return send(v); }
+    case 'export': return exportData();
+    case 'import': return $('#importFile').click();
+    case 'clear-chat': S.chat = []; save(); closeSheet(); return render();
+  }
+});
+document.addEventListener('keydown', e => {
+  if (e.target.id === 'msg' && e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); const v = e.target.value; e.target.value = ''; send(v); }
+});
+document.addEventListener('input', e => {
+  if (e.target.id === 'msg') { e.target.style.height = 'auto'; e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px'; }
+});
+$('#cam').addEventListener('change', e => { onPhoto(e.target.files[0]); e.target.value = ''; });
+$('#pick').addEventListener('change', e => { onPhoto(e.target.files[0]); e.target.value = ''; });
+$('#importFile').addEventListener('change', e => { if (e.target.files[0]) importData(e.target.files[0]); e.target.value = ''; });
+// إذا تغيّر اليوم والتطبيق مفتوح
+document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
+
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+if (navigator.storage?.persist) navigator.storage.persist();
+render();
+if (!S.settings.apiKey && !localStorage.getItem('rashaqa-welcomed')) {
+  localStorage.setItem('rashaqa-welcomed', '1');
+  setTimeout(() => { openSettings(); toast('أهلاً! حطي المفتاح والأهداف'); }, 400);
+}
+</script>
+</body>
+</html>

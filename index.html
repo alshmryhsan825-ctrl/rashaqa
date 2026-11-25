@@ -705,6 +705,16 @@ $('#importFile').addEventListener('change', e => { if (e.target.files[0]) import
 // إذا تغيّر اليوم والتطبيق مفتوح
 document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
 
+// ملء الشاشة حتى لو انفتح في المتصفح (أندرويد): أول لمسة تخفي شريط العنوان والساعة
+const standalone = matchMedia('(display-mode: standalone), (display-mode: fullscreen)').matches || navigator.standalone;
+const fsEl = document.documentElement;
+function goFull() {
+  if (standalone || document.fullscreenElement || !fsEl.requestFullscreen) return;
+  fsEl.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
+}
+document.addEventListener('pointerup', goFull);
+document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement) document.addEventListener('pointerup', goFull); });
+
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 if (navigator.storage?.persist) navigator.storage.persist();
 render();
